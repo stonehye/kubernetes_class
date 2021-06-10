@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: db
+      service: redis
+  template:
+    metadata:
+      labels:
+        type: db
+        service: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - port: 6379
+    protocol: TCP
+  selector:
+    type: db
+    service: redis
+
+# ---을 사용하면 파일을 분리하지 않고 하나의 파일에 같이 사용 가능
+# 아래 양식은 ClusterIP 설정하는 부분 (label이 db이고 redis인 pod을 바라봄)
+######################################################################################################
+# >>> kubectl get all
+# ...
+# NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+# ...
+# service/redis        ClusterIP   10.43.67.110   <none>        6379/TCP   55s -> 10.43.67.110로 접속하면 LoadBalacer를 통해 내부 pod들 중 하나에 번갈아가면서 접속
+# ...
+######################################################################################################
+# >>> kubectl describe service/redis
+# ...
+# Endpoints:         10.42.0.44:6379,10.42.0.45:6379,10.42.0.46:6379 -> 생성된 pod들의 ip
+# ...
+######################################################################################################

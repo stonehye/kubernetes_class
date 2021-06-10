@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: whoami
+spec:
+  type: NodePort
+  ports:
+  - port: 4567 # 모든 node에 4567이 모두 열리게됨
+    protocol: TCP
+  selector: # app을 바라보는 service
+    type: app
+    service: whoami
+  
+# >>> k get all
+# ...
+# NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+# service/kubernetes   ClusterIP   10.43.0.1      <none>        443/TCP          7d1h
+# service/redis        ClusterIP   10.43.67.110   <none>        6379/TCP         15m
+# service/whoami       NodePort    10.43.17.192   <none>        4567:31060/TCP   3s -> 31060 부분 번호는 3만번대로 랜덤하게 지정
+# ...

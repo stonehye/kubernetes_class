@@ -1,0 +1,25 @@
+apiVersion: apps/v1 # replica
+kind: ReplicaSet
+metadata:
+  name: whoami-rs
+spec:
+  replicas: 3 # 복제 개수, yml 파일 내 replicas 개수를 수정하여 다시 apply 하면 수정사항 반영
+  selector: # replicatset은 matchlabel(type은 app, service는 whomai)을 가진 pod가 생성되었는지 확인
+    matchLabels:
+      type: app
+      service: whoami
+  template: # 만일 selector에 해당하는 pod이 없으면 아래와 같은 pod 생성
+    metadata:
+      labels: # pod의 label
+        type: app
+        service: whoami
+    spec:
+      containers:
+      - name: whoami
+        image: subicura/whoami:1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4567
+# replicaset과 생성된 pod이 연결되어있기보다는, replicaset은 matchlabels에 해당하는 pod 존재여부만 확인히여 pod 생성
+# type label 제거 시, replicaset은 두 개의 label을 가진 pod가 없다고 판단하여 templete을 이용해 새로운 pod 생성

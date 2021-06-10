@@ -1,0 +1,24 @@
+# redis를 바라보는 app
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami
+spec:
+  selector:
+    matchLabels:
+      type: app
+      service: whoami
+  template:
+    metadata:
+      labels:
+        type: app
+        service: whoami
+    spec:
+      containers:
+      - name: whoami
+        image: subicura/whoami-redis:1
+        env:
+        - name: REDIS_HOST
+          value: "redis" # 도메인의 이름 = 서비스이름 (docker-compose와 동일)
+        - name: REDIS_PORT
+          value: "6379"

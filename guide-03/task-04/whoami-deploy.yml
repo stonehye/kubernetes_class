@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment # replicaset에서 버전관리와 rollback 추가, replicaset을 deployment가 이용
+metadata:
+  name: whoami-deploy
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: app
+      service: whoami
+  template:
+    metadata:
+      labels:
+        type: app
+        service: whoami
+    spec:
+      containers:
+      - name: whoami
+        image: subicura/whoami:1
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4567
+
+# 변경 시 이전의 pod들은 없애고 다시 생성, 새로운 설정의 pod을 생성해내는 replicaset 재생성
+#
+# <예시>
+# NAME                       DESIRED   CURRENT   READY   AGE
+# whoami-deploy-67544ffd58   3         3         3       2m3s -> 현재 replicaset
+# whoami-deploy-7f68b696cf   0         0         0       2m5  -> 이전 replicaset

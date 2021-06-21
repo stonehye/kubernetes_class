@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-04
+spec:
+  accessModes:
+  - ReadWriteOnce # 읽기 쓰기 가능
+  resources:
+    requests:
+      storage: 1G
+  storageClassName: "" # 현재 만들어져있는 PV들 선택 (PV 연결)

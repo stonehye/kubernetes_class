@@ -1,0 +1,2 @@
+Content
+# kubectl create configmap cm-file --from-file=./file-c.txt

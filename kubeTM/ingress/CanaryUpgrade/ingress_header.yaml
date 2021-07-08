@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: canary-kr
+  annotations:
+    nginx.ingress.kubernetes.io/canary: "true"
+    # header 옵션
+    nginx.ingress.kubernetes.io/canary-by-header: "shopId"
+    nginx.ingress.kubernetes.io/canary-by-header-value: "1"
+spec:
+  rules:
+  - host: www.app.com
+    http:
+      paths:
+      - backend:
+          serviceName: svc-v2
+          servicePort: 8080
+
+# curl -H "shopId: 1" www.app.com:30431/version

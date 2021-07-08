@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-dev
+data:
+  SSH: 'false' # boolean 값을 넣고싶으면 ` 사용
+  User: dev # 기본으로 String

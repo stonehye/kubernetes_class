@@ -7,13 +7,14 @@ spec:
   capacity:
     storage: 2G
   accessModes:
-  - ReadWriteOnce
+   - ReadWriteOnce
+  #- ReadOnlyMany
   local:
     path: /node-v
   nodeAffinity:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - {key: kubernetes.io/hostname, operator: In, values: [k8s-node1]}
+        - {key: kubernetes.io/hostname, operator: In, values: [tmax-worker2]}
         # PV들은 values에 라벨링 된 노드 위에만 생성
         # 파드가 무조건 지정된 노드위에만 생성 -> 데이터 영속성 존재

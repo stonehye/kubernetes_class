@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: service-loadbalancing
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /
+          backend:
+            serviceName: svc-shopping
+            servicePort: 8080
+        - path: /customer
+          backend:
+            serviceName: svc-customer
+            servicePort: 8080
+        - path: /order
+          backend:
+            serviceName: svc-order
+            servicePort: 8080
+# curl 192.168.154.26:30431/
+# curl 192.168.154.26:30431/order
+# curl 192.168.154.26:30431/customer

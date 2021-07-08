@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: canary-v2
+  annotations: # nginx 옵션
+    nginx.ingress.kubernetes.io/canary: "true" # canary test
+    nginx.ingress.kubernetes.io/canary-weight: "10" # 트래픽의 10%를 svc-v2에
+spec:
+  rules:
+  - host: www.app.com
+    http:
+      paths:
+      - backend:
+          serviceName: svc-v2
+          servicePort: 8080
+
+# while true; do curl www.app.com:30431/version; sleep 1; done

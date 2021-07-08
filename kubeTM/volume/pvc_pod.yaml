@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-volume-3
+  name: pod-volume-4
 spec:
   containers:
   - name: container
@@ -12,4 +12,4 @@ spec:
   volumes: # PVC 마운팅
   - name : pvc-pv
     persistentVolumeClaim:
-      claimName: pvc-01
+      claimName: pvc-01 # /nodev에 연결, 만일 기존 생성된 nodev가 없다면 pvc를 apply 할땐 문제가 되지 않지만, 파드 생성 시에는 오류 발생

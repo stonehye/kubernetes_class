@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: https
+spec:
+  tls:
+  - hosts:
+    - www.https.com
+    secretName: secret-https
+  rules:
+    - host: www.https.com # 트래픽이 들어올 host
+      http:
+        paths:
+        - backend:
+            serviceName: svc-https # 서비스 지정
+            servicePort: 8080

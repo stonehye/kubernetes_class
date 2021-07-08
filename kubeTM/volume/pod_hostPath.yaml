@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: pod-volume-3
+  name: pod-volume-2
 spec:
   nodeSelector:
     kubernetes.io/hostname: tmax-worker2
@@ -16,3 +16,4 @@ spec:
     hostPath:
       path: /node-v # 사전에 해당 node에 경로가 있어야 에러가 나지 않음
       type: DirectoryOrCreate # 만약 이 path가 디렉토리에 없으면 생성
+      # 파드를 삭제하더라도 폴더 유지

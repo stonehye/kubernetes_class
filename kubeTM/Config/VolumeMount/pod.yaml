@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-mount
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    volumeMounts:
+    - name: file-volume
+      mountPath: /mount
+  volumes:
+  - name: file-volume
+    configMap:
+      name: cm-file # 변경하면 마운트 안 컨피그파일이 바로 적용됨

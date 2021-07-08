@@ -623,7 +623,7 @@ spec:
             # chosen from this range. Changing this value after installation will have
             # no effect. This should fall within `--cluster-cidr`.
             - name: CALICO_IPV4POOL_CIDR
-              value: "10.244.0.0/16"
+              value: "172.16.0.0/16"
             - name: IP_AUTODETECTION_METHOD
               value: "interface=enp.*"
             # Disable file logging so `kubectl logs` works.

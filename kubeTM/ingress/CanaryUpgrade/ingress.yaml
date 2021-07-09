@@ -12,7 +12,7 @@ spec:
           servicePort: 8080
 # Centos HostName 등록
 # cat << EOF >> /etc/hosts
-# 192.168.0.30 www.app.com
+# 192.168.155.78 www.app.com
 # EOF
 
 # curl www.app.com:30431/version

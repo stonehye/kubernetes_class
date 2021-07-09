@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: service-loadbalancing1
+  name: service-routing2
   annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_headers "test: test1";
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
   - http:
       paths:
-        - path: /customer
+        - path: /customer(/|$)(.*)
           backend:
             serviceName: svc-customer1
             servicePort: 8080
-        # - path: /order
-        #   backend:
-        #     serviceName: svc-order1
-        #     servicePort: 8080
+        - path: /order(/|$)(.*)
+          backend:
+            serviceName: svc-order1
+            servicePort: 8080

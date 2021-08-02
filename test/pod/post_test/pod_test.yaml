@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-ingress-test
+  labels:
+    category: test
+spec:
+  containers:
+  - name: test
+    image: stonehye/test_pod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-test
+spec:
+  selector:
+    category: test
+  ports:
+  - port: 7070

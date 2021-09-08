@@ -644,16 +644,16 @@ spec:
             privileged: true
           resources:
             requests:
-              cpu: 250m
-          livenessProbe:
-            exec:
-              command:
-              - /bin/calico-node
-              - -felix-live
-              - -bird-live
-            periodSeconds: 10
-            initialDelaySeconds: 10
-            failureThreshold: 6
+              cpu: 0.25
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #     - /bin/calico-node
+          #     - -felix-live
+          #     - -bird-live
+          #   periodSeconds: 10
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 6
           readinessProbe:
             exec:
               command:
